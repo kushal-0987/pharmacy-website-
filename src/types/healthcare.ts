@@ -120,14 +120,22 @@ export interface HealthPackage {
 export interface Medicine {
   id: string;
   name: string;
+  brand?: string;
   genericName: string;
   strength: string;
   form: 'Tablet' | 'Capsule' | 'Syrup' | 'Injection' | 'Ointment' | 'Drops' | 'Inhaler';
   manufacturer: string;
+  supplier?: string;
   prescriptionRequired: boolean;
   price: number;
+  purchasePrice?: number;
+  sellingPrice?: number;
   inStock: boolean;
   stockCount: number;
+  lowStockThreshold?: number;
+  expiryDate?: string; // YYYY-MM-DD
+  batchNumber?: string;
+  imageUrl?: string;
   category: string;
   dosageGuidelines?: string;
 }

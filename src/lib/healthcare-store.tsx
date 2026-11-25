@@ -404,126 +404,189 @@ const SEED_MEDICINES: Medicine[] = [
   {
     id: 'med-1',
     name: 'Niko Paracetamol 500mg',
+    brand: 'Niko',
     genericName: 'Paracetamol',
     strength: '500mg',
     form: 'Tablet',
     manufacturer: 'Nepal Pharmaceuticals Lab (NPL)',
+    supplier: 'Valley Med Distributors',
     prescriptionRequired: false,
     price: 20,
+    purchasePrice: 14,
+    sellingPrice: 20,
     inStock: true,
     stockCount: 850,
+    lowStockThreshold: 150,
+    expiryDate: '2028-04-30',
+    batchNumber: 'NPL-26A1',
     category: 'Pain Relief & Fever',
     dosageGuidelines: '1 tablet every 6 hours as needed for fever or mild pain.',
   },
   {
     id: 'med-2',
     name: 'Cifran 500 (Ciprofloxacin)',
+    brand: 'Cifran',
     genericName: 'Ciprofloxacin Hydrochloride',
     strength: '500mg',
     form: 'Tablet',
     manufacturer: 'Sun Pharma Nepal',
+    supplier: 'Kathmandu Pharma Hub',
     prescriptionRequired: true,
     price: 180,
+    purchasePrice: 135,
+    sellingPrice: 180,
     inStock: true,
-    stockCount: 140,
+    stockCount: 110,
+    lowStockThreshold: 150,
+    expiryDate: '2027-08-15',
+    batchNumber: 'SUN-882C',
     category: 'Antibiotics',
     dosageGuidelines: 'Strictly as prescribed by a licensed doctor. Complete the full course.',
   },
   {
     id: 'med-3',
     name: 'Pantocid 40 (Pantoprazole)',
+    brand: 'Pantocid',
     genericName: 'Pantoprazole Sodium',
     strength: '40mg',
     form: 'Tablet',
     manufacturer: 'Sun Pharma',
+    supplier: 'Kathmandu Pharma Hub',
     prescriptionRequired: false,
     price: 120,
+    purchasePrice: 88,
+    sellingPrice: 120,
     inStock: true,
     stockCount: 420,
+    lowStockThreshold: 150,
+    expiryDate: '2027-11-20',
+    batchNumber: 'SUN-419P',
     category: 'Acidity & Gastrointestinal',
     dosageGuidelines: '1 tablet once daily in the morning 30 minutes before breakfast.',
   },
   {
     id: 'med-4',
     name: 'Glycomet-GP 1 (Metformin + Glimepiride)',
+    brand: 'Glycomet-GP',
     genericName: 'Metformin 500mg + Glimepiride 1mg',
     strength: '500mg / 1mg',
     form: 'Tablet',
     manufacturer: 'USV Nepal',
+    supplier: 'Lalitpur Medical Supply',
     prescriptionRequired: true,
     price: 165,
+    purchasePrice: 122,
+    sellingPrice: 165,
     inStock: true,
     stockCount: 210,
+    lowStockThreshold: 100,
+    expiryDate: '2027-02-10',
+    batchNumber: 'USV-904G',
     category: 'Diabetes Care',
     dosageGuidelines: 'Take strictly with breakfast as advised by physician.',
   },
   {
     id: 'med-5',
     name: 'Amlokem 5 (Amlodipine)',
+    brand: 'Amlokem',
     genericName: 'Amlodipine Besylate',
     strength: '5mg',
     form: 'Tablet',
     manufacturer: 'Alkem Laboratories',
+    supplier: 'Valley Med Distributors',
     prescriptionRequired: true,
     price: 95,
+    purchasePrice: 68,
+    sellingPrice: 95,
     inStock: true,
     stockCount: 310,
+    lowStockThreshold: 120,
+    expiryDate: '2028-01-31',
+    batchNumber: 'ALK-502A',
     category: 'Cardiovascular & Blood Pressure',
     dosageGuidelines: 'Once daily at a regular scheduled time.',
   },
   {
     id: 'med-6',
     name: 'Cetriz 10mg (Cetirizine)',
+    brand: 'Cetriz',
     genericName: 'Cetirizine Dihydrochloride',
     strength: '10mg',
     form: 'Tablet',
     manufacturer: 'Deurali-Janta Pharmaceuticals (DJPL)',
+    supplier: 'DJPL Direct Logistics',
     prescriptionRequired: false,
     price: 45,
+    purchasePrice: 30,
+    sellingPrice: 45,
     inStock: true,
     stockCount: 600,
+    lowStockThreshold: 150,
+    expiryDate: '2027-09-30',
+    batchNumber: 'DJPL-118Z',
     category: 'Allergy & Cold',
     dosageGuidelines: '1 tablet in the evening for allergic rhinitis or skin allergy.',
   },
   {
     id: 'med-7',
     name: 'Azithral 500 (Azithromycin)',
+    brand: 'Azithral',
     genericName: 'Azithromycin',
     strength: '500mg',
     form: 'Tablet',
     manufacturer: 'Alembic Pharmaceuticals',
+    supplier: 'Everest Drug House',
     prescriptionRequired: true,
     price: 240,
+    purchasePrice: 185,
+    sellingPrice: 240,
     inStock: true,
-    stockCount: 95,
+    stockCount: 65,
+    lowStockThreshold: 100,
+    expiryDate: '2027-01-15',
+    batchNumber: 'ALM-771Z',
     category: 'Antibiotics',
     dosageGuidelines: '1 tablet daily 1 hour before or 2 hours after meals for 3-5 days.',
   },
   {
     id: 'med-8',
     name: 'Shelcal 500 (Calcium + Vit D3)',
+    brand: 'Shelcal',
     genericName: 'Calcium Carbonate 500mg + Vitamin D3 250 IU',
     strength: '500mg',
     form: 'Tablet',
     manufacturer: 'Torrent Pharma',
+    supplier: 'Lalitpur Medical Supply',
     prescriptionRequired: false,
     price: 150,
+    purchasePrice: 112,
+    sellingPrice: 150,
     inStock: true,
     stockCount: 350,
+    lowStockThreshold: 100,
+    expiryDate: '2028-06-30',
+    batchNumber: 'TOR-339S',
     category: 'Vitamins & Supplements',
     dosageGuidelines: '1 tablet after main meal daily.',
   },
   {
     id: 'med-9',
     name: 'Jeevan Jal (Oral Rehydration Salts)',
+    brand: 'Jeevan Jal',
     genericName: 'WHO Standard Oral Rehydration Salts',
     strength: '20.5g sachet',
     form: 'Drops',
     manufacturer: 'Nepal Pharmaceuticals Lab',
+    supplier: 'Valley Med Distributors',
     prescriptionRequired: false,
     price: 15,
+    purchasePrice: 9,
+    sellingPrice: 15,
     inStock: true,
     stockCount: 1200,
+    lowStockThreshold: 200,
+    expiryDate: '2028-12-31',
+    batchNumber: 'NPL-991J',
     category: 'Dehydration & Rehydration',
     dosageGuidelines: 'Dissolve entire sachet in 1 liter of boiled and cooled drinking water.',
   },
@@ -767,6 +830,7 @@ interface HealthcareContextType {
   activeAccount: UserAccount | null;
   isAuthenticated: boolean;
   login: (identifier: string, password: string) => Promise<{ success: boolean; user?: UserAccount; error?: string; mustChangePassword?: boolean }>;
+  registerPatient: (data: { fullName: string; username: string; email: string; phone: string; password: string }) => Promise<{ success: boolean; user?: UserAccount; error?: string }>;
   logout: () => void;
   changePassword: (oldPassword: string, newPassword: string) => Promise<{ success: boolean; error?: string }>;
   adminCreateUser: (data: { fullName: string; username: string; email: string; phone?: string; role: Role; tempPassword?: string }) => Promise<{ success: boolean; user?: UserAccount; error?: string }>;
@@ -796,6 +860,10 @@ interface HealthcareContextType {
   // Actions
   createAppointment: (apt: Omit<Appointment, 'id' | 'referenceId' | 'createdAt' | 'updatedAt'>) => Appointment;
   updateAppointmentStatus: (id: string, status: Appointment['status'], notes?: string) => void;
+  addMedicine: (med: Omit<Medicine, 'id'>) => Medicine;
+  updateMedicine: (id: string, updates: Partial<Medicine>) => void;
+  restockMedicine: (id: string, delta: number) => void;
+  addProvider: (provider: Omit<HealthcareProvider, 'id'>) => HealthcareProvider;
   createMedicineEnquiry: (enq: Omit<MedicineEnquiry, 'id' | 'referenceId' | 'createdAt' | 'status'>) => MedicineEnquiry;
   updateEnquiryStatus: (id: string, status: MedicineEnquiry['status'], pharmacistNotes?: string, totalQuoted?: number) => void;
   updateDeliveryStatus: (id: string, status: DeliveryRequest['status'], notes?: string) => void;
@@ -828,49 +896,27 @@ function safeSetItem(key: string, value: string): void {
 }
 
 export const HealthcareProviderComponent: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // User Accounts & Authentication State
+  // User Accounts & Authentication State (defaults to unauthenticated Guest Visitor)
   const [users, setUsers] = useState<UserAccount[]>(SEED_USERS);
-  // Initial default: Super Admin Kushal Pokhrel
-  const [activeAccount, setActiveAccount] = useState<UserAccount | null>(SEED_USERS[0]);
-  const [currentRole, setCurrentRoleState] = useState<Role>('admin');
+  const [activeAccount, setActiveAccount] = useState<UserAccount | null>(null);
+  const [currentRole, setCurrentRoleState] = useState<Role>('patient');
+  const [authHydrated, setAuthHydrated] = useState(false);
 
-  // Restricted setCurrentRole (Strict Role-Based Access Control)
-  const setCurrentRole = (role: Role) => {
-    // Only Super Admin can override role for testing; ordinary users are blocked
-    if (activeAccount && activeAccount.role !== 'admin' && activeAccount.role !== role) {
-      console.warn('Security Alert: Unauthorized role switch attempt blocked.');
-      return;
-    }
-    setCurrentRoleState(role);
+  // Strict Role-Based Access Control: never allow frontend role switching to override assigned role
+  const setCurrentRole = (_role: Role) => {
+    console.warn('Role changes are controlled strictly by database assignment and Super Admin.');
   };
 
   const [currentUser, setCurrentUser] = useState<UserProfile>({
-    id: 'usr-admin-1',
-    name: 'Kushal Pokhrel',
-    email: 'kushal@twobrothershealthcare.com',
-    phone: '9841234567',
-    role: 'admin',
-    dateOfBirth: '1994-08-22',
-    bloodGroup: 'B Positive',
-    allergies: ['Penicillin'],
-    chronicConditions: ['None'],
-    emergencyContact: {
-      name: 'Binod Sharma',
-      relationship: 'Brother',
-      phone: '9851098765',
-    },
-    dependents: [
-      { id: 'dep-1', name: 'Gita Sharma', relationship: 'Mother', dateOfBirth: '1962-03-12', bloodGroup: 'B Positive' },
-      { id: 'dep-2', name: 'Aarav Sharma', relationship: 'Son', dateOfBirth: '2021-11-04', bloodGroup: 'O Positive' },
-    ],
-    addresses: [
-      { id: 'addr-1', label: 'Home', address: 'Sanagau Ward-4, Near Shiva Temple', city: 'Lalitpur', isDefault: true },
-      { id: 'addr-2', label: 'Office', address: 'Pulchowk Commercial Complex, 3rd Floor', city: 'Lalitpur' },
-    ],
+    id: 'usr-guest',
+    name: 'Guest Visitor',
+    email: '',
+    phone: '',
+    role: 'patient',
   });
 
   // Local state initialized with seeds (SSR safe)
-  const [providers] = useState<HealthcareProvider[]>(SEED_PROVIDERS);
+  const [providers, setProviders] = useState<HealthcareProvider[]>(SEED_PROVIDERS);
   const [labTests] = useState<LabTest[]>(SEED_LAB_TESTS);
   const [packages] = useState<HealthPackage[]>(SEED_PACKAGES);
   const [medicines, setMedicines] = useState<Medicine[]>(SEED_MEDICINES);
@@ -908,7 +954,34 @@ export const HealthcareProviderComponent: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     try {
       const savedMeds = safeGetItem('tbh_medicines');
-      if (savedMeds) setMedicines(JSON.parse(savedMeds));
+      if (savedMeds) {
+        try {
+          const parsedMeds: Medicine[] = JSON.parse(savedMeds);
+          if (Array.isArray(parsedMeds) && parsedMeds.length > 0) {
+            // Merge any newly introduced fields (expiryDate, supplier, purchasePrice) from SEED_MEDICINES
+            const seedMap = new Map(SEED_MEDICINES.map((s) => [s.id, s]));
+            setMedicines(
+              parsedMeds.map((m) => {
+                const seed = seedMap.get(m.id);
+                if (!seed) return m;
+                const merged: Medicine = { ...seed, ...m, sellingPrice: m.sellingPrice ?? m.price };
+                if (m.expiryDate || seed.expiryDate) merged.expiryDate = (m.expiryDate || seed.expiryDate)!;
+                if (m.supplier || seed.supplier) merged.supplier = (m.supplier || seed.supplier)!;
+                if (m.purchasePrice ?? seed.purchasePrice) merged.purchasePrice = (m.purchasePrice ?? seed.purchasePrice)!;
+                return merged;
+              })
+            );
+          }
+        } catch {}
+      }
+
+      const savedProviders = safeGetItem('tbh_providers');
+      if (savedProviders) {
+        try {
+          const parsedProvs = JSON.parse(savedProviders);
+          if (Array.isArray(parsedProvs) && parsedProvs.length > 0) setProviders(parsedProvs);
+        } catch {}
+      }
 
       const savedAppts = safeGetItem('tbh_appointments');
       if (savedAppts) setAppointments(JSON.parse(savedAppts));
@@ -923,11 +996,13 @@ export const HealthcareProviderComponent: React.FC<{ children: ReactNode }> = ({
       if (savedNotifs) setNotifications(JSON.parse(savedNotifs));
 
       // Rehydrate user registry and active session
+      let effectiveUsers = SEED_USERS;
       const savedUsers = safeGetItem('tbh_user_registry');
       if (savedUsers) {
         try {
           const parsedUsers = JSON.parse(savedUsers);
           if (Array.isArray(parsedUsers) && parsedUsers.length > 0) {
+            effectiveUsers = parsedUsers;
             setUsers(parsedUsers);
           }
         } catch {}
@@ -941,18 +1016,25 @@ export const HealthcareProviderComponent: React.FC<{ children: ReactNode }> = ({
         try {
           const parsedAuth = JSON.parse(savedAuth);
           if (parsedAuth && parsedAuth.id) {
-            setActiveAccount(parsedAuth);
-            setCurrentRoleState(parsedAuth.role);
+            // Re-verify against registry so role/status always match authoritative records
+            const matched = effectiveUsers.find((u) => u.id === parsedAuth.id);
+            if (matched && matched.status === 'active') {
+              setActiveAccount(matched);
+              setCurrentRoleState(matched.role);
+            }
           }
         } catch {}
       }
     } catch (e) {
       console.warn('Failed to rehydrate local state:', e);
+    } finally {
+      setAuthHydrated(true);
     }
   }, []);
 
-  // Sync activeAccount changes to currentUser and storage
+  // Sync activeAccount changes to currentUser and storage (only after initial hydration)
   useEffect(() => {
+    if (!authHydrated) return;
     if (activeAccount) {
       safeSetItem('tbh_auth_session', JSON.stringify(activeAccount));
       setCurrentRoleState(activeAccount.role);
@@ -971,14 +1053,15 @@ export const HealthcareProviderComponent: React.FC<{ children: ReactNode }> = ({
         } catch {}
       }
       setCurrentRoleState('patient');
-      setCurrentUser((prev) => ({
-        ...prev,
+      setCurrentUser({
         id: 'usr-guest',
-        name: 'Guest Patient',
+        name: 'Guest Visitor',
+        email: '',
+        phone: '',
         role: 'patient',
-      }));
+      });
     }
-  }, [activeAccount]);
+  }, [activeAccount, authHydrated]);
 
   // Persist user registry updates
   useEffect(() => {
@@ -1097,6 +1180,69 @@ export const HealthcareProviderComponent: React.FC<{ children: ReactNode }> = ({
       prev.map((a) => (a.id === id ? { ...a, status, internalStaffNotes: notes ?? a.internalStaffNotes, updatedAt: new Date().toISOString() } : a))
     );
     addAuditLog('UPDATE_STATUS', 'Appointment', id, `Status updated to ${status}`);
+  };
+
+  const addMedicine = (med: Omit<Medicine, 'id'>): Medicine => {
+    const newMed: Medicine = {
+      ...med,
+      id: 'med-' + Date.now(),
+      sellingPrice: med.sellingPrice ?? med.price,
+      inStock: med.stockCount > 0,
+    };
+    setMedicines((prev) => [newMed, ...prev]);
+    addAuditLog('MEDICINE_ADDED', 'Medicine', newMed.id, `Added ${newMed.name} (${newMed.stockCount} units)`);
+    return newMed;
+  };
+
+  const updateMedicine = (id: string, updates: Partial<Medicine>) => {
+    setMedicines((prev) =>
+      prev.map((m) => {
+        if (m.id !== id) return m;
+        const nextStock = updates.stockCount !== undefined ? Math.max(0, updates.stockCount) : m.stockCount;
+        const nextPrice = updates.sellingPrice ?? updates.price ?? m.price;
+        return {
+          ...m,
+          ...updates,
+          stockCount: nextStock,
+          price: nextPrice,
+          sellingPrice: nextPrice,
+          inStock: nextStock > 0,
+        };
+      })
+    );
+    addAuditLog('MEDICINE_UPDATED', 'Medicine', id, `Updated inventory fields: ${Object.keys(updates).join(', ')}`);
+  };
+
+  const restockMedicine = (id: string, delta: number) => {
+    let targetName = id;
+    let finalCount = 0;
+    setMedicines((prev) =>
+      prev.map((m) => {
+        if (m.id !== id) return m;
+        targetName = m.name;
+        finalCount = Math.max(0, m.stockCount + delta);
+        return {
+          ...m,
+          stockCount: finalCount,
+          inStock: finalCount > 0,
+        };
+      })
+    );
+    addAuditLog('MEDICINE_RESTOCK', 'Medicine', id, `Adjusted stock for ${targetName} by ${delta >= 0 ? `+${delta}` : delta} (new qty: ${finalCount})`);
+  };
+
+  const addProvider = (provider: Omit<HealthcareProvider, 'id'>): HealthcareProvider => {
+    const newProv: HealthcareProvider = {
+      ...provider,
+      id: 'doc-' + Date.now(),
+    };
+    setProviders((prev) => {
+      const next = [newProv, ...prev];
+      safeSetItem('tbh_providers', JSON.stringify(next));
+      return next;
+    });
+    addAuditLog('PROVIDER_ADDED', 'HealthcareProvider', newProv.id, `Registered ${newProv.name} (${newProv.registrationNumber})`);
+    return newProv;
   };
 
   const createMedicineEnquiry = (enq: Omit<MedicineEnquiry, 'id' | 'referenceId' | 'createdAt' | 'status'>): MedicineEnquiry => {
@@ -1231,6 +1377,55 @@ export const HealthcareProviderComponent: React.FC<{ children: ReactNode }> = ({
       user: updatedUser,
       mustChangePassword: !!updatedUser.mustChangePassword,
     };
+  };
+
+  const registerPatient = async (data: {
+    fullName: string;
+    username: string;
+    email: string;
+    phone: string;
+    password: string;
+  }): Promise<{ success: boolean; user?: UserAccount; error?: string }> => {
+    const cleanUsername = data.username.trim().toLowerCase();
+    const cleanEmail = data.email.trim().toLowerCase();
+
+    if (!cleanUsername || !cleanEmail || !data.fullName.trim()) {
+      return { success: false, error: 'Full name, username, and email are required.' };
+    }
+    if (data.password.length < 6) {
+      return { success: false, error: 'Password must be at least 6 characters long.' };
+    }
+    if (users.some((u) => u.username.toLowerCase() === cleanUsername)) {
+      return { success: false, error: `Username "${cleanUsername}" is already taken.` };
+    }
+    if (users.some((u) => u.email.toLowerCase() === cleanEmail)) {
+      return { success: false, error: `Email "${cleanEmail}" is already registered.` };
+    }
+
+    const salt = generateSalt();
+    const passwordHash = await hashPassword(data.password, salt);
+
+    const newPatient: UserAccount = {
+      id: 'usr-' + Date.now(),
+      fullName: data.fullName.trim(),
+      username: cleanUsername,
+      email: cleanEmail,
+      phone: data.phone.trim(),
+      role: 'patient', // Public registration is strictly locked to patient role
+      passwordSalt: salt,
+      passwordHash,
+      status: 'active',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    setUsers((prev) => [newPatient, ...prev]);
+    setActiveAccount(newPatient);
+    setCurrentRoleState('patient');
+    safeSetItem('tbh_auth_session', JSON.stringify(newPatient));
+    addAuditLog('PATIENT_REGISTERED', 'UserAccount', newPatient.id, `New patient account registered: ${newPatient.fullName}`);
+
+    return { success: true, user: newPatient };
   };
 
   const logout = () => {
@@ -1479,6 +1674,7 @@ export const HealthcareProviderComponent: React.FC<{ children: ReactNode }> = ({
         activeAccount,
         isAuthenticated: !!activeAccount,
         login,
+        registerPatient,
         logout,
         changePassword,
         adminCreateUser,
@@ -1502,6 +1698,10 @@ export const HealthcareProviderComponent: React.FC<{ children: ReactNode }> = ({
         releaseSlot,
         createAppointment,
         updateAppointmentStatus,
+        addMedicine,
+        updateMedicine,
+        restockMedicine,
+        addProvider,
         createMedicineEnquiry,
         updateEnquiryStatus,
         updateDeliveryStatus,

@@ -33,10 +33,14 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminAppointmentsRouteImport } from './routes/admin/appointments'
 import { Route as AdminAuditRouteImport } from './routes/admin/audit'
 import { Route as AdminContentRouteImport } from './routes/admin/content'
+import { Route as AdminDeliveriesRouteImport } from './routes/admin/deliveries'
+import { Route as AdminEnquiriesRouteImport } from './routes/admin/enquiries'
+import { Route as AdminLabReportsRouteImport } from './routes/admin/lab-reports'
 import { Route as AdminNotificationsRouteImport } from './routes/admin/notifications'
 import { Route as AdminPackagesRouteImport } from './routes/admin/packages'
 import { Route as AdminPatientsRouteImport } from './routes/admin/patients'
 import { Route as AdminPharmacyRouteImport } from './routes/admin/pharmacy'
+import { Route as AdminPrescriptionsRouteImport } from './routes/admin/prescriptions'
 import { Route as AdminProvidersRouteImport } from './routes/admin/providers'
 import { Route as AdminReportsRouteImport } from './routes/admin/reports'
 import { Route as AdminRolesRouteImport } from './routes/admin/roles'
@@ -180,6 +184,21 @@ const AdminContentRoute = AdminContentRouteImport.update({
   path: '/admin/content',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminDeliveriesRoute = AdminDeliveriesRouteImport.update({
+  id: '/admin/deliveries',
+  path: '/admin/deliveries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminEnquiriesRoute = AdminEnquiriesRouteImport.update({
+  id: '/admin/enquiries',
+  path: '/admin/enquiries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLabReportsRoute = AdminLabReportsRouteImport.update({
+  id: '/admin/lab-reports',
+  path: '/admin/lab-reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
   id: '/admin/notifications',
   path: '/admin/notifications',
@@ -198,6 +217,11 @@ const AdminPatientsRoute = AdminPatientsRouteImport.update({
 const AdminPharmacyRoute = AdminPharmacyRouteImport.update({
   id: '/admin/pharmacy',
   path: '/admin/pharmacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPrescriptionsRoute = AdminPrescriptionsRouteImport.update({
+  id: '/admin/prescriptions',
+  path: '/admin/prescriptions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminProvidersRoute = AdminProvidersRouteImport.update({
@@ -334,10 +358,14 @@ export interface FileRoutesByFullPath {
   '/admin/appointments': typeof AdminAppointmentsRoute
   '/admin/audit': typeof AdminAuditRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/deliveries': typeof AdminDeliveriesRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
+  '/admin/lab-reports': typeof AdminLabReportsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/packages': typeof AdminPackagesRoute
   '/admin/patients': typeof AdminPatientsRoute
   '/admin/pharmacy': typeof AdminPharmacyRoute
+  '/admin/prescriptions': typeof AdminPrescriptionsRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/roles': typeof AdminRolesRoute
@@ -386,10 +414,14 @@ export interface FileRoutesByTo {
   '/admin/appointments': typeof AdminAppointmentsRoute
   '/admin/audit': typeof AdminAuditRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/deliveries': typeof AdminDeliveriesRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
+  '/admin/lab-reports': typeof AdminLabReportsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/packages': typeof AdminPackagesRoute
   '/admin/patients': typeof AdminPatientsRoute
   '/admin/pharmacy': typeof AdminPharmacyRoute
+  '/admin/prescriptions': typeof AdminPrescriptionsRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/roles': typeof AdminRolesRoute
@@ -439,10 +471,14 @@ export interface FileRoutesById {
   '/admin/appointments': typeof AdminAppointmentsRoute
   '/admin/audit': typeof AdminAuditRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/deliveries': typeof AdminDeliveriesRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
+  '/admin/lab-reports': typeof AdminLabReportsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/packages': typeof AdminPackagesRoute
   '/admin/patients': typeof AdminPatientsRoute
   '/admin/pharmacy': typeof AdminPharmacyRoute
+  '/admin/prescriptions': typeof AdminPrescriptionsRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/roles': typeof AdminRolesRoute
@@ -493,10 +529,14 @@ export interface FileRouteTypes {
     | '/admin/appointments'
     | '/admin/audit'
     | '/admin/content'
+    | '/admin/deliveries'
+    | '/admin/enquiries'
+    | '/admin/lab-reports'
     | '/admin/notifications'
     | '/admin/packages'
     | '/admin/patients'
     | '/admin/pharmacy'
+    | '/admin/prescriptions'
     | '/admin/providers'
     | '/admin/reports'
     | '/admin/roles'
@@ -545,10 +585,14 @@ export interface FileRouteTypes {
     | '/admin/appointments'
     | '/admin/audit'
     | '/admin/content'
+    | '/admin/deliveries'
+    | '/admin/enquiries'
+    | '/admin/lab-reports'
     | '/admin/notifications'
     | '/admin/packages'
     | '/admin/patients'
     | '/admin/pharmacy'
+    | '/admin/prescriptions'
     | '/admin/providers'
     | '/admin/reports'
     | '/admin/roles'
@@ -597,10 +641,14 @@ export interface FileRouteTypes {
     | '/admin/appointments'
     | '/admin/audit'
     | '/admin/content'
+    | '/admin/deliveries'
+    | '/admin/enquiries'
+    | '/admin/lab-reports'
     | '/admin/notifications'
     | '/admin/packages'
     | '/admin/patients'
     | '/admin/pharmacy'
+    | '/admin/prescriptions'
     | '/admin/providers'
     | '/admin/reports'
     | '/admin/roles'
@@ -650,10 +698,14 @@ export interface RootRouteChildren {
   AdminAppointmentsRoute: typeof AdminAppointmentsRoute
   AdminAuditRoute: typeof AdminAuditRoute
   AdminContentRoute: typeof AdminContentRoute
+  AdminDeliveriesRoute: typeof AdminDeliveriesRoute
+  AdminEnquiriesRoute: typeof AdminEnquiriesRoute
+  AdminLabReportsRoute: typeof AdminLabReportsRoute
   AdminNotificationsRoute: typeof AdminNotificationsRoute
   AdminPackagesRoute: typeof AdminPackagesRoute
   AdminPatientsRoute: typeof AdminPatientsRoute
   AdminPharmacyRoute: typeof AdminPharmacyRoute
+  AdminPrescriptionsRoute: typeof AdminPrescriptionsRoute
   AdminProvidersRoute: typeof AdminProvidersRoute
   AdminReportsRoute: typeof AdminReportsRoute
   AdminRolesRoute: typeof AdminRolesRoute
@@ -850,6 +902,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminContentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/deliveries': {
+      id: '/admin/deliveries'
+      path: '/admin/deliveries'
+      fullPath: '/admin/deliveries'
+      preLoaderRoute: typeof AdminDeliveriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/enquiries': {
+      id: '/admin/enquiries'
+      path: '/admin/enquiries'
+      fullPath: '/admin/enquiries'
+      preLoaderRoute: typeof AdminEnquiriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/lab-reports': {
+      id: '/admin/lab-reports'
+      path: '/admin/lab-reports'
+      fullPath: '/admin/lab-reports'
+      preLoaderRoute: typeof AdminLabReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/notifications': {
       id: '/admin/notifications'
       path: '/admin/notifications'
@@ -876,6 +949,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/pharmacy'
       fullPath: '/admin/pharmacy'
       preLoaderRoute: typeof AdminPharmacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/prescriptions': {
+      id: '/admin/prescriptions'
+      path: '/admin/prescriptions'
+      fullPath: '/admin/prescriptions'
+      preLoaderRoute: typeof AdminPrescriptionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/providers': {
@@ -1058,10 +1138,14 @@ const rootRouteChildren: RootRouteChildren = {
   AdminAppointmentsRoute: AdminAppointmentsRoute,
   AdminAuditRoute: AdminAuditRoute,
   AdminContentRoute: AdminContentRoute,
+  AdminDeliveriesRoute: AdminDeliveriesRoute,
+  AdminEnquiriesRoute: AdminEnquiriesRoute,
+  AdminLabReportsRoute: AdminLabReportsRoute,
   AdminNotificationsRoute: AdminNotificationsRoute,
   AdminPackagesRoute: AdminPackagesRoute,
   AdminPatientsRoute: AdminPatientsRoute,
   AdminPharmacyRoute: AdminPharmacyRoute,
+  AdminPrescriptionsRoute: AdminPrescriptionsRoute,
   AdminProvidersRoute: AdminProvidersRoute,
   AdminReportsRoute: AdminReportsRoute,
   AdminRolesRoute: AdminRolesRoute,

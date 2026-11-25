@@ -1,8 +1,7 @@
 import React, { ReactNode, useState } from 'react';
-import { Link, useRouterState } from '@tanstack/react-router';
+import { Link, useRouterState, useNavigate } from '@tanstack/react-router';
 import { useHealthcare } from '@/lib/healthcare-store';
 import { TopEmergencyBar } from '@/components/common/Header';
-import logo from '@/assets/two-brothers-logo-256.png.asset.json';
 import {
   LayoutDashboard,
   Calendar,
@@ -16,17 +15,79 @@ import {
   ChevronRight,
   Menu,
   X,
-  Plus,
   Users,
+  Lock,
 } from 'lucide-react';
 
 export const AccountLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const { currentUser, notifications, setCurrentRole } = useHealthcare();
+  const { isAuthenticated, activeAccount, currentUser, currentRole, notifications, logout } = useHealthcare();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [activeDependent, setActiveDependent] = useState<string>('self');
 
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
+  const navigate = useNavigate();
+
+  // Enforce authentication & authorization for Patient Portal
+  if (!isAuthenticated || !activeAccount) {
+    return (
+      <div className="min-h-screen bg-[#F4F8FE] flex items-center justify-center p-4 text-[#10243B]">
+        <div className="max-w-md w-full bg-white rounded-2xl p-8 border border-[#D9E8FF] shadow-lg text-center space-y-4">
+          <div className="h-14 w-14 rounded-full bg-[#E6F5FF] text-[#0755D9] mx-auto flex items-center justify-center">
+            <Lock className="h-7 w-7" />
+          </div>
+          <h2 className="font-display text-xl font-bold text-[#082653]">Sign In Required</h2>
+          <p className="text-xs text-[#64748B] leading-relaxed">
+            Please sign in with your patient account to view appointments, prescriptions, lab reports, and delivery tracking.
+          </p>
+          <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
+            <Link
+              to="/login"
+              className="px-5 py-2.5 rounded-xl bg-[#0755D9] text-white text-xs font-semibold hover:bg-[#082653] transition-colors"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/register"
+              className="px-5 py-2.5 rounded-xl border border-[#D9E8FF] text-[#082653] text-xs font-semibold hover:bg-[#F4F8FE] transition-colors"
+            >
+              Register Patient Account
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentRole !== 'patient' && currentRole !== 'admin') {
+    return (
+      <div className="min-h-screen bg-[#F4F8FE] flex items-center justify-center p-4 text-[#10243B]">
+        <div className="max-w-md w-full bg-white rounded-2xl p-8 border border-rose-200 shadow-lg text-center space-y-4">
+          <div className="h-14 w-14 rounded-full bg-rose-50 text-[#EF4444] mx-auto flex items-center justify-center">
+            <Lock className="h-7 w-7" />
+          </div>
+          <h2 className="font-display text-xl font-bold text-[#082653]">Patient Portal Restricted</h2>
+          <p className="text-xs text-[#64748B] leading-relaxed">
+            You are currently signed in as <strong>{activeAccount.fullName} ({currentRole.replace('_', ' ')})</strong>. Please use your assigned Staff Portal.
+          </p>
+          <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
+            <Link
+              to="/staff"
+              className="px-5 py-2.5 rounded-xl bg-[#0755D9] text-white text-xs font-semibold hover:bg-[#082653] transition-colors"
+            >
+              Go to Staff Portal
+            </Link>
+            <Link
+              to="/"
+              className="px-5 py-2.5 rounded-xl border border-slate-200 text-[#10243B] text-xs font-semibold hover:bg-slate-50 transition-colors"
+            >
+              Return Home
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const unreadNotifs = notifications.filter((n) => !n.read).length;
 
@@ -40,6 +101,11 @@ export const AccountLayout: React.FC<{ children: ReactNode }> = ({ children }) =
     { label: 'Profile & Settings', to: '/account/profile', icon: User },
     { label: 'Notifications', to: '/account/notifications', icon: Bell, badge: unreadNotifs },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate({ to: '/login' });
+  };
 
   return (
     <div className="min-h-screen bg-navy-deep text-foreground flex flex-col">
@@ -73,28 +139,38 @@ export const AccountLayout: React.FC<{ children: ReactNode }> = ({ children }) =
         </div>
 
         {/* Right Header items */}
-        <div className="flex items-center gap-3">
-          {/* Dependent Switcher */}
-          <div className="hidden sm:flex items-center gap-1.5 bg-midnight border border-on-dark/15 rounded-full px-3 py-1 text-xs">
-            <Users className="h-3.5 w-3.5 text-cyan" />
-            <span className="text-on-dark-muted text-[11px]">Active Profile:</span>
-            <select
-              value={activeDependent}
-              onChange={(e) => setActiveDependent(e.target.value)}
-              className="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer"
-            >
-              <option value="self" className="bg-navy">{currentUser.name} (Self)</option>
-              {currentUser.dependents?.map((dep) => (
-                <option key={dep.id} value={dep.id} className="bg-navy">
-                  {dep.name} ({dep.relationship})
-                </option>
-              ))}
-            </select>
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Authenticated User Badge */}
+          <div className="hidden md:flex items-center gap-2 bg-midnight border border-on-dark/15 rounded-full px-3 py-1 text-xs">
+            <User className="h-3.5 w-3.5 text-cyan" />
+            <span className="text-white font-bold">{activeAccount.fullName}</span>
+            <span className="text-teal text-[10px] font-semibold uppercase">(Patient)</span>
           </div>
+
+          {/* Dependent Switcher (Family Profiles only, never role switching) */}
+          {currentUser.dependents && currentUser.dependents.length > 0 && (
+            <div className="hidden xl:flex items-center gap-1.5 bg-midnight border border-on-dark/15 rounded-full px-3 py-1 text-xs">
+              <Users className="h-3.5 w-3.5 text-cyan" />
+              <select
+                value={activeDependent}
+                onChange={(e) => setActiveDependent(e.target.value)}
+                aria-label="Select family member"
+                className="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer"
+              >
+                <option value="self" className="bg-navy">{activeAccount.fullName} (Self)</option>
+                {currentUser.dependents.map((dep) => (
+                  <option key={dep.id} value={dep.id} className="bg-navy">
+                    {dep.name} ({dep.relationship})
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           <Link
             to="/account/notifications"
             className="relative p-2 rounded-full text-on-dark-muted hover:text-white hover:bg-white/10 transition-colors"
+            aria-label="Notifications"
           >
             <Bell className="h-4 w-4" />
             {unreadNotifs > 0 && (
@@ -106,11 +182,20 @@ export const AccountLayout: React.FC<{ children: ReactNode }> = ({ children }) =
 
           <Link
             to="/"
-            onClick={() => setCurrentRole('patient')}
-            className="flex items-center gap-1 text-xs text-on-dark-muted hover:text-white px-3 py-1.5 rounded-full border border-on-dark/15 hover:bg-white/5"
+            className="hidden sm:inline-flex items-center gap-1 text-xs text-on-dark-muted hover:text-white px-3 py-1.5 rounded-full border border-on-dark/15 hover:bg-white/5"
           >
-            <span>Exit Portal</span>
+            <span>Website</span>
           </Link>
+
+          {/* Visible Prominent Logout Button */}
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#FEF2F2] hover:bg-[#FEE2E2] border border-[#FCA5A5] text-[#DC2626] text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+          >
+            <LogOut className="h-3.5 w-3.5 text-[#DC2626]" />
+            <span>Logout</span>
+          </button>
         </div>
       </header>
 
@@ -123,16 +208,16 @@ export const AccountLayout: React.FC<{ children: ReactNode }> = ({ children }) =
             <div className="p-5 rounded-3xl bg-midnight/60 border border-on-dark/15 text-xs space-y-3">
               <div className="flex items-center gap-3">
                 <div className="h-11 w-11 rounded-2xl bg-teal/20 text-cyan flex items-center justify-center font-bold text-base">
-                  {currentUser.name.charAt(0)}
+                  {activeAccount.fullName.charAt(0).toUpperCase()}
                 </div>
-                <div>
-                  <div className="font-bold text-white text-sm truncate">{currentUser.name}</div>
-                  <div className="text-[11px] text-teal">{currentUser.phone}</div>
+                <div className="min-w-0">
+                  <div className="font-bold text-white text-sm truncate">{activeAccount.fullName}</div>
+                  <div className="text-[11px] text-teal truncate">{activeAccount.phone || activeAccount.email}</div>
                 </div>
               </div>
               <div className="pt-2 border-t border-on-dark/10 flex items-center justify-between text-[11px] text-on-dark-muted">
-                <span>Blood: <strong>{currentUser.bloodGroup || 'B+'}</strong></span>
-                <span className="text-leaf font-semibold">Active Member</span>
+                <span>Role: <strong className="text-white">Patient</strong></span>
+                <span className="text-leaf font-semibold">Active Session</span>
               </div>
             </div>
 
@@ -173,42 +258,65 @@ export const AccountLayout: React.FC<{ children: ReactNode }> = ({ children }) =
             >
               + Book New Appointment
             </Link>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="w-full py-2.5 px-4 rounded-2xl bg-[#FEF2F2] hover:bg-[#FEE2E2] border border-[#FCA5A5] text-[#DC2626] font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
+            >
+              <LogOut className="h-4 w-4 text-[#DC2626]" />
+              <span>Logout</span>
+            </button>
           </div>
         </aside>
 
         {/* Mobile Sidebar Drawer */}
         {mobileSidebarOpen && (
-          <div className="lg:hidden fixed inset-0 z-50 bg-navy-deep/90 backdrop-blur-md p-6 overflow-y-auto animate-in fade-in">
-            <div className="flex items-center justify-between pb-4 border-b border-on-dark/15 mb-6">
-              <span className="font-display font-bold text-white text-base">Patient Menu</span>
-              <button
-                type="button"
-                onClick={() => setMobileSidebarOpen(false)}
-                className="p-2 rounded-full text-white bg-midnight"
-              >
-                <X className="h-5 w-5" />
-              </button>
+          <div className="lg:hidden fixed inset-0 z-50 bg-navy-deep/95 backdrop-blur-md p-6 overflow-y-auto animate-in fade-in flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between pb-4 border-b border-on-dark/15 mb-6">
+                <span className="font-display font-bold text-white text-base">Patient Menu</span>
+                <button
+                  type="button"
+                  onClick={() => setMobileSidebarOpen(false)}
+                  className="p-2 rounded-full text-white bg-midnight"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <nav className="space-y-2">
+                {menuItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      onClick={() => setMobileSidebarOpen(false)}
+                      className="flex items-center justify-between p-3.5 rounded-2xl bg-midnight/50 text-white text-sm"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className="h-4 w-4 text-cyan" />
+                        <span>{item.label}</span>
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-on-dark-muted" />
+                    </Link>
+                  );
+                })}
+              </nav>
             </div>
 
-            <nav className="space-y-2">
-              {menuItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    onClick={() => setMobileSidebarOpen(false)}
-                    className="flex items-center justify-between p-3.5 rounded-2xl bg-midnight/50 text-white text-sm"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Icon className="h-4 w-4 text-cyan" />
-                      <span>{item.label}</span>
-                    </div>
-                    <ChevronRight className="h-4 w-4 text-on-dark-muted" />
-                  </Link>
-                );
-              })}
-            </nav>
+            <button
+              type="button"
+              onClick={() => {
+                setMobileSidebarOpen(false);
+                handleLogout();
+              }}
+              className="mt-6 w-full py-3 rounded-2xl bg-[#FEF2F2] border border-[#FCA5A5] text-[#DC2626] font-bold text-xs flex items-center justify-center gap-2"
+            >
+              <LogOut className="h-4 w-4 text-[#DC2626]" />
+              <span>Logout</span>
+            </button>
           </div>
         )}
 

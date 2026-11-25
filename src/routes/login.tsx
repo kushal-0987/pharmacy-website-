@@ -3,21 +3,10 @@ import { useState } from 'react';
 import { PublicLayout } from '@/components/common/PublicLayout';
 import { useHealthcare } from '@/lib/healthcare-store';
 import {
-  User,
-  Lock,
-  ArrowRight,
-  ShieldCheck,
-  CheckCircle2,
   LogIn,
   Eye,
   EyeOff,
   KeyRound,
-  AlertCircle,
-  Stethoscope,
-  Pill,
-  FlaskConical,
-  Headphones,
-  Truck,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -38,8 +27,8 @@ function LoginPage() {
   const { login, changePassword, activeAccount } = useHealthcare();
   const navigate = useNavigate();
 
-  const [identifier, setIdentifier] = useState('kushal');
-  const [password, setPassword] = useState('Admin@123');
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -121,17 +110,6 @@ function LoginPage() {
     }
   };
 
-  // Quick Account Picker for seamless testing of all 7 roles
-  const testAccounts = [
-    { label: 'Super Admin', user: 'kushal', pass: 'Admin@123', name: 'Kushal Pokhrel', icon: ShieldCheck, color: 'text-[#082653]' },
-    { label: 'Patient', user: 'bikash', pass: 'Patient@123', name: 'Bikash', icon: User, color: 'text-[#0755D9]' },
-    { label: 'Doctor', user: 'drsuresh', pass: 'Doctor@123', name: 'Dr. Suresh', icon: Stethoscope, color: 'text-[#00AAFF]' },
-    { label: 'Pharmacist', user: 'phmanish', pass: 'Pharma@123', name: 'Ph. Manish', icon: Pill, color: 'text-[#19C99A]' },
-    { label: 'Lab Tech', user: 'rohan', pass: 'Lab@123', name: 'Rohan', icon: FlaskConical, color: 'text-purple-600' },
-    { label: 'Receptionist', user: 'puja', pass: 'Front@123', name: 'Puja', icon: Headphones, color: 'text-amber-600' },
-    { label: 'Delivery Rider', user: 'prakash', pass: 'Rider@123', name: 'Prakash', icon: Truck, color: 'text-teal-600' },
-  ];
-
   return (
     <PublicLayout>
       <div className="py-20 bg-[#F2F8FF] min-h-[80vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 text-[#10243B]">
@@ -161,7 +139,7 @@ function LoginPage() {
                   required
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
-                  placeholder="e.g. kushal or bikash"
+                  placeholder="Enter your username, email, or mobile"
                   className="w-full px-4 py-3 rounded-2xl bg-[#F2F8FF] border border-blue-200 text-[#10243B] text-xs focus:outline-none focus:border-[#0755D9]"
                 />
               </div>
@@ -174,7 +152,7 @@ function LoginPage() {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    toast.info('Please contact Super Admin (Kushal Pokhrel) to reset your password.');
+                    toast.info('Please contact our clinic administrator for password recovery assistance.');
                   }}
                   className="text-[11px] text-[#0755D9] hover:underline"
                 >
@@ -211,33 +189,13 @@ function LoginPage() {
             </button>
           </form>
 
-          {/* Quick Credential Test Picker */}
-          <div className="pt-4 border-t border-slate-100">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B] block mb-2 text-center">
-              Quick Role Test Credentials
-            </span>
-            <div className="grid grid-cols-2 gap-1.5 max-h-36 overflow-y-auto pr-1">
-              {testAccounts.map((acc) => {
-                const Icon = acc.icon;
-                return (
-                  <button
-                    key={acc.user}
-                    type="button"
-                    onClick={() => {
-                      setIdentifier(acc.user);
-                      setPassword(acc.pass);
-                      toast.info(`Selected ${acc.label} (${acc.name})`);
-                    }}
-                    className="p-1.5 rounded-xl border border-blue-100 bg-[#F2F8FF] hover:bg-blue-100/60 text-left transition-colors flex items-center gap-2 text-[11px]"
-                  >
-                    <Icon className={`h-3.5 w-3.5 shrink-0 ${acc.color}`} />
-                    <div className="truncate">
-                      <div className="font-bold text-[#082653] truncate">{acc.label}</div>
-                      <div className="text-[10px] text-[#64748B]">{acc.user}</div>
-                    </div>
-                  </button>
-                );
-              })}
+          {/* Patient Registration Link */}
+          <div className="pt-4 border-t border-slate-100 text-center text-xs text-[#64748B] space-y-2">
+            <div>
+              New patient?{' '}
+              <Link to="/register" className="font-semibold text-[#0755D9] hover:underline">
+                Register for Patient Portal →
+              </Link>
             </div>
           </div>
         </div>

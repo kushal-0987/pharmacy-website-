@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 import { Toaster } from "sonner";
 import { I18nProvider } from "@/lib/i18n";
 import { HealthcareProviderComponent } from "@/lib/healthcare-store";
-import { SecurityNoticeBanner } from "@/components/common/SecurityNoticeBanner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -136,7 +135,6 @@ function RootComponent() {
         <HealthcareProviderComponent>
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
-          <SecurityNoticeBanner />
           <Toaster position="top-right" richColors />
         </HealthcareProviderComponent>
       </I18nProvider>

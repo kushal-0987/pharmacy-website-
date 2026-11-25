@@ -1,21 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useHealthcare } from '@/lib/healthcare-store';
 import {
   History,
-  ShieldCheck,
   Search,
   Download,
-  Filter,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
 export const Route = createFileRoute('/admin/audit')({
   head: () => ({
     meta: [
-      { title: 'Immutable System Audit Logs — Two Brothers Healthcare' },
-      { name: 'description', content: 'Compliance activity logs, patient record access audits, and clinical action telemetry.' },
+      { title: 'System Audit Logs — Two Brothers Healthcare' },
+      { name: 'description', content: 'Tamper-evident system audit logs for account, booking, and inventory events.' },
     ],
   }),
   component: AdminAuditPage,
@@ -25,121 +23,92 @@ function AdminAuditPage() {
   const { auditLogs } = useHealthcare();
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Fallback demo audit entries if none generated yet
-  const displayLogs = auditLogs.length > 0 ? auditLogs : [
-    {
-      id: 'log-101',
-      timestamp: '2026-11-23T10:05:00Z',
-      actorName: 'Dr. Suresh Shrestha',
-      actorRole: 'doctor' as any,
-      action: 'UPDATE_STATUS',
-      entityType: 'Appointment',
-      entityId: 'TBH-2026-001',
-      details: 'Status updated to confirmed. SMS dispatched.',
-      ipAddress: '192.168.1.14',
-    },
-    {
-      id: 'log-102',
-      timestamp: '2026-11-23T09:20:00Z',
-      actorName: 'Ph. Manish Shrestha',
-      actorRole: 'pharmacist' as any,
-      action: 'VERIFY_PRESCRIPTION',
-      entityType: 'MedicineEnquiry',
-      entityId: 'MED-2026-042',
-      details: 'Prescription image verified. Quoted NPR 220.',
-      ipAddress: '192.168.1.18',
-    },
-    {
-      id: 'log-103',
-      timestamp: '2026-11-23T08:45:00Z',
-      actorName: 'Puja Joshi',
-      actorRole: 'receptionist' as any,
-      action: 'PATIENT_TRIAGE',
-      entityType: 'Patient',
-      entityId: 'usr-patient-1',
-      details: 'Patient vitals captured (BP 120/80, Pulse 72).',
-      ipAddress: '192.168.1.10',
-    },
-  ];
-
-  const filtered = displayLogs.filter(
-    (l) =>
-      l.action.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      l.actorName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      l.entityId.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filtered = useMemo(() => {
+    const q = searchTerm.trim().toLowerCase();
+    return auditLogs.filter(
+      (l) =>
+        !q ||
+        l.action.toLowerCase().includes(q) ||
+        l.actorName.toLowerCase().includes(q) ||
+        l.entityId.toLowerCase().includes(q) ||
+        l.details.toLowerCase().includes(q)
+    );
+  }, [auditLogs, searchTerm]);
 
   return (
     <AdminLayout>
-      <div className="space-y-6 animate-in fade-in duration-300">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-on-dark/15">
+      <div className="space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="font-display text-2xl font-bold text-white">Immutable Security & Audit Trails</h1>
-            <p className="text-xs text-on-dark-muted">
-              Tamper-evident system activity log for regulatory healthcare compliance and medical data governance.
+            <h1 className="font-display text-2xl font-bold text-[#082653]">System Audit Logs</h1>
+            <p className="text-xs text-[#64748B] mt-0.5">
+              Security and operational activity log recorded across authentication, bookings, and pharmacy stock.
             </p>
           </div>
 
           <button
             type="button"
-            onClick={() => toast.success('Audit log exported to compliance CSV archive!')}
-            className="px-4 py-2 rounded-full bg-midnight border border-on-dark/20 text-white font-semibold text-xs flex items-center gap-1.5 hover:bg-white/5 self-start sm:self-auto"
+            onClick={() => toast.success('Audit log snapshot ready.')}
+            className="px-4 py-2 rounded-xl bg-white border border-[#D9E8FF] text-[#082653] hover:bg-[#E6F5FF] font-semibold text-xs inline-flex items-center gap-1.5 cursor-pointer self-start sm:self-auto"
           >
-            <Download className="h-4 w-4 text-cyan" />
-            <span>Export Compliance Archive</span>
+            <Download className="h-4 w-4 text-[#0755D9]" />
+            <span>Export Log</span>
           </button>
         </div>
 
-        {/* Search */}
-        <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-on-dark-muted" />
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search action, actor, or entity ID..."
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-midnight border border-on-dark/20 text-white text-xs focus:outline-none focus:border-cyan"
-          />
+        <div className="bg-white rounded-2xl border border-[#E2ECFA] p-4 shadow-xs">
+          <div className="relative w-full sm:w-80">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748B]" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search action, actor, or entity ID..."
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#F4F8FE] border border-[#E2ECFA] text-xs text-[#10243B]"
+            />
+          </div>
         </div>
 
-        {/* Audit Log Table */}
-        <div className="rounded-3xl bg-midnight/40 border border-on-dark/15 overflow-hidden shadow-2xl">
+        <div className="bg-white rounded-2xl border border-[#E2ECFA] shadow-xs overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-on-dark/15 text-on-dark-muted bg-navy/60">
-                  <th className="py-3 px-4 font-bold">Timestamp</th>
-                  <th className="py-3 px-4 font-bold">Actor & Role</th>
-                  <th className="py-3 px-4 font-bold">Action</th>
-                  <th className="py-3 px-4 font-bold">Entity</th>
-                  <th className="py-3 px-4 font-bold">Details</th>
-                  <th className="py-3 px-4 font-bold text-right">IP Address</th>
+                <tr className="bg-[#F4F8FE] border-b border-slate-100 text-[#64748B]">
+                  <th className="py-3.5 px-4 font-semibold">Timestamp</th>
+                  <th className="py-3.5 px-4 font-semibold">Actor &amp; Role</th>
+                  <th className="py-3.5 px-4 font-semibold">Action</th>
+                  <th className="py-3.5 px-4 font-semibold">Entity</th>
+                  <th className="py-3.5 px-4 font-semibold">Details</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-on-dark/10 font-mono">
-                {filtered.map((log) => (
-                  <tr key={log.id} className="hover:bg-navy-deep/60 transition-colors">
-                    <td className="py-3 px-4 text-on-dark-muted whitespace-nowrap">
-                      {new Date(log.timestamp).toLocaleString()}
-                    </td>
-                    <td className="py-3 px-4 text-white">
-                      <span className="font-sans font-bold">{log.actorName}</span>
-                      <span className="block text-[10px] text-teal uppercase font-sans">
-                        {log.actorRole}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-cyan font-bold">{log.action}</td>
-                    <td className="py-3 px-4 text-white">
-                      {log.entityType} ({log.entityId})
-                    </td>
-                    <td className="py-3 px-4 text-on-dark-muted font-sans max-w-sm truncate">
-                      {log.details}
-                    </td>
-                    <td className="py-3 px-4 text-right text-on-dark-muted/80">
-                      {log.ipAddress || '192.168.1.1'}
+              <tbody className="divide-y divide-slate-100">
+                {filtered.length === 0 ? (
+                  <tr>
+                    <td colSpan={5} className="py-12 text-center text-[#64748B]">
+                      <History className="h-8 w-8 text-slate-300 mx-auto mb-2" />
+                      No audit events recorded in this session yet. Perform an account, booking, or stock action to generate entries.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  filtered.map((log) => (
+                    <tr key={log.id} className="hover:bg-[#F4F8FE]/60">
+                      <td className="py-3 px-4 font-mono text-[11px] text-[#64748B] whitespace-nowrap">
+                        {new Date(log.timestamp).toLocaleString()}
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className="font-semibold text-[#10243B]">{log.actorName}</span>
+                        <span className="ml-1.5 px-2 py-0.5 rounded-md bg-[#E6F5FF] text-[#0755D9] text-[10px] font-semibold uppercase">
+                          {log.actorRole}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 font-mono font-semibold text-[#082653]">{log.action}</td>
+                      <td className="py-3 px-4 text-[#0755D9] font-medium">
+                        {log.entityType} ({log.entityId})
+                      </td>
+                      <td className="py-3 px-4 text-[#64748B]">{log.details}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

@@ -77,6 +77,15 @@ export const FeatureStrip: React.FC = () => {
 /* 2. Quick Portal Cards (3 Prominent Cards from Mockup 2)                    */
 /* -------------------------------------------------------------------------- */
 export const QuickPortalCards: React.FC = () => {
+  const { isAuthenticated, currentRole } = useHealthcare();
+  const portalHref = !isAuthenticated
+    ? '/login'
+    : currentRole === 'admin'
+      ? '/admin'
+      : currentRole === 'patient'
+        ? '/account'
+        : '/staff';
+
   return (
     <section className="py-8 bg-[#F2F8FF] border-b border-blue-100/60 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,10 +110,10 @@ export const QuickPortalCards: React.FC = () => {
               </p>
             </div>
             <Link
-              to="/account"
+              to={portalHref}
               className="inline-flex items-center justify-between px-4 py-2.5 rounded-full bg-[#0755D9] text-white text-xs font-semibold hover:bg-[#00AAFF] transition-colors shadow-sm"
             >
-              <span>Access Portal</span>
+              <span>{isAuthenticated ? 'Access Portal' : 'Sign In to Portal'}</span>
               <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

@@ -2,8 +2,6 @@ import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { PublicLayout } from '@/components/common/PublicLayout';
 import { useHealthcare } from '@/lib/healthcare-store';
-import { hashPassword, generateSalt } from '@/lib/auth-crypto';
-import { UserAccount } from '@/types/healthcare';
 import {
   UserPlus,
   Lock,
@@ -28,7 +26,7 @@ export const Route = createFileRoute('/register')({
 });
 
 function RegisterPage() {
-  const { users, login } = useHealthcare();
+  const { registerPatient } = useHealthcare();
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
@@ -51,43 +49,22 @@ function RegisterPage() {
     }
 
     const cleanUsername = (username || name.toLowerCase().replace(/\s+/g, '')).trim().toLowerCase();
-    const cleanEmail = email.trim().toLowerCase();
-
-    if (users.some((u) => u.username.toLowerCase() === cleanUsername)) {
-      toast.error(`Username "${cleanUsername}" is already taken. Please choose another.`);
-      return;
-    }
-
-    if (users.some((u) => u.email.toLowerCase() === cleanEmail)) {
-      toast.error(`Email "${cleanEmail}" is already registered.`);
-      return;
-    }
 
     setSubmitting(true);
     try {
-      const salt = generateSalt();
-      const passwordHash = await hashPassword(password, salt);
-
-      const newPatient: UserAccount = {
-        id: 'usr-' + Date.now(),
+      const res = await registerPatient({
         fullName: name.trim(),
         username: cleanUsername,
-        email: cleanEmail,
+        email: email.trim(),
         phone: phone.trim(),
-        role: 'patient', // Public registration is strictly for patients only
-        passwordSalt: salt,
-        passwordHash,
-        status: 'active',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
+        password,
+      });
 
-      // Save to registry and log in
-      const existing = JSON.parse(localStorage.getItem('tbh_user_registry') || '[]');
-      const updated = [newPatient, ...existing];
-      localStorage.setItem('tbh_user_registry', JSON.stringify(updated));
+      if (!res.success) {
+        toast.error(res.error || 'Failed to register account.');
+        return;
+      }
 
-      await login(cleanUsername, password);
       toast.success(`Patient account registered successfully for ${name}!`);
       navigate({ to: '/account' });
     } catch {
